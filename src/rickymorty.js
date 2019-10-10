@@ -47,11 +47,8 @@ const showCharacter = function(argv){
     //const characterURL = "character/?name=";
     const name = argv.name;
     const urlCharacters = `${baseURL}${name}`;
-    // console.log(name);
-    // console.log(urlCharacters);
-    
-    //const getValues = (urlCharacters, results, name) => {
-        //console.log("hola");
+    const results = "";
+    const getValues = (urlCharacters, results, name) => {
         request({ url: urlCharacters, json: true }, (error, response) => {  
             response.body.results.forEach((element,i) => {
                 //console.log(`${i}: ${response.body.results[i].id}`);
@@ -64,12 +61,16 @@ const showCharacter = function(argv){
                 });
             });
             
-            // if(response.body.info.next !== ""){
-            //     getValues(response.body.info.next, results, name);
-            // }
+            if(response.body.info.next !== ""){
+                getValues(response.body.info.next, results, name);
+            }
+            else{
+                console.log(results);
+            }
             
         });
-    //}
+    }
+    getValues(urlCharacters, results, name);
 }
 
 export{characterList, searchByName, listStatus, showCharacter}
