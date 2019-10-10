@@ -59,7 +59,6 @@ const showCharacter = function(argv){
             else{
                 console.log(results);
             }
-            
         });
     }
     getValues(urlCharacters, results, name);
