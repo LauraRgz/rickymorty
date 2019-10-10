@@ -44,21 +44,13 @@ const listStatus = function(argv){
 
 const showCharacter = function(argv){
     const baseURL = "https://rickandmortyapi.com/api/character/?name=";
-    //const characterURL = "character/?name=";
     const name = argv.name;
     const urlCharacters = `${baseURL}${name}`;
     const results = "";
     const getValues = (urlCharacters, results, name) => {
         request({ url: urlCharacters, json: true }, (error, response) => {  
             response.body.results.forEach((element,i) => {
-                //console.log(`${i}: ${response.body.results[i].id}`);
-                const idCharacter = response.body.results[i].id;
-                const baseURLid = "https://rickandmortyapi.com/api/character/";
-                const idURL = `${baseURLid}${idCharacter}`;
-
-                request({ url: idURL, json: true }, (error, response) => { 
-                    console.log(element);
-                });
+                console.log(element);
             });
             
             if(response.body.info.next !== ""){
@@ -72,5 +64,4 @@ const showCharacter = function(argv){
     }
     getValues(urlCharacters, results, name);
 }
-
 export{characterList, searchByName, listStatus, showCharacter}
