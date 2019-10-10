@@ -25,6 +25,22 @@ const searchByName = function(argv){
             console.log(`${i}: ${response.body.results[i].name}`);
         });
     });
+}
+
+const listStatus = function(argv){
+    const baseURL = "https://rickandmortyapi.com/api/";
+    const characterURL = "character/?status=";
+    const statusURL = argv.status;
+    const index = argv.page;
+    const urlCharacters = `${baseURL}${characterURL}${statusURL}&page=${index}`;
+    console.log(urlCharacters);
+    request({ url: urlCharacters, json: true }, (error, response) => {  
+        
+        response.body.results.forEach((element,i) => {
+            console.log(`${i}: ${response.body.results[i].name}`);
+        });
+    });
 
 }
-export{characterList, searchByName}
+
+export{characterList, searchByName, listStatus}

@@ -1,5 +1,5 @@
 import yargs from 'yargs';
-import {characterList, searchByName} from './rickymorty'
+import {characterList, searchByName, listStatus} from './rickymorty'
 
 yargs.command({
     command: 'list',
@@ -25,7 +25,7 @@ yargs.command({
             demandOption: true, 
             type: 'string',
           },
-          
+
           page: {
             describe: 'page',
             demandOption: false, 
@@ -34,6 +34,27 @@ yargs.command({
     }, 
     handler: function(argv){
         searchByName(argv);
+  }
+});
+
+yargs.command({
+    command: 'searchStatus',
+    describe: ' ',
+    builder: {
+        status: {
+            describe: 'status',
+            demandOption: true, 
+            type: 'string',
+          },
+          
+          page: {
+            describe: 'page',
+            demandOption: false, 
+            type: 'number',
+          },
+    }, 
+    handler: function(argv){
+        listStatus(argv);
   }
 });
 
