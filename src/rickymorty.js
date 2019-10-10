@@ -8,9 +8,14 @@ const characterList = function(argv){
     const urlCharacters = `${baseURL}${characterURL}${pageURL}${index}`;
     
     request({ url: urlCharacters, json: true }, (error, response) => {  
-        response.body.results.forEach((element,i) => {
-                console.log(`${i}: ${response.body.results[i].name}`);
-        });
+        if(response.body.results){
+            response.body.results.forEach((element,i) => {
+                    console.log(`${i}: ${response.body.results[i].name}`);
+            });
+        }
+        else{
+            console.log("No results found");
+        }
     });
 }
 
@@ -22,10 +27,17 @@ const searchByName = function(argv){
     const urlCharacters = `${baseURL}${characterURL}${name}&page=${index}`;
     
     request({ url: urlCharacters, json: true }, (error, response) => {  
-        response.body.results.forEach((element,i) => {
-            console.log(`${i}: ${response.body.results[i].name}`);
-        });
+        if(response.body.results){
+            response.body.results.forEach((element,i) => {
+                console.log(`${i}: ${response.body.results[i].name}`);
+            });
+        }
+        else{
+            console.log("No results found");
+        }
     });
+    
+    
 }
 
 const listStatus = function(argv){
@@ -34,11 +46,15 @@ const listStatus = function(argv){
     const statusURL = argv.status;
     const index = argv.page;
     const urlCharacters = `${baseURL}${characterURL}${statusURL}&page=${index}`;
-    console.log(urlCharacters);
     request({ url: urlCharacters, json: true }, (error, response) => {  
-        response.body.results.forEach((element,i) => {
-            console.log(`${i}: ${response.body.results[i].name}`);
-        });
+        if(response.body.results){
+            response.body.results.forEach((element,i) => {
+                console.log(`${i}: ${response.body.results[i].name}`);
+            });
+        }
+        else{
+            console.log("No results found");
+        }
     });
 }
 
@@ -49,15 +65,20 @@ const showCharacter = function(argv){
     const results = "";
     const getValues = (urlCharacters, results, name) => {
         request({ url: urlCharacters, json: true }, (error, response) => {  
-            response.body.results.forEach((element,i) => {
-                console.log(element);
-            });
-            
-            if(response.body.info.next !== ""){
-                getValues(response.body.info.next, results, name);
+            if(response.body.results){
+                response.body.results.forEach((element,i) => {
+                    console.log(element);
+                });
+                
+                if(response.body.info.next !== ""){
+                    getValues(response.body.info.next, results, name);
+                }
+                else{
+                    console.log(results);
+                }
             }
             else{
-                console.log(results);
+                console.log("No results found");
             }
         });
     }
